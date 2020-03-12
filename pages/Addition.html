@@ -15,65 +15,68 @@
             <label id="lblFirstNum"></label> +
             <label id="lblSecondNum"></label> = 
             <input type="text" id="inputResult"><br>
-
-            <p id="txtLastAnswer"></p>
+            
             <p id="txtResult"></p>
+            <p id="txtLastAnswer"></p>
             <p id="txtStats"></p>
         </h2>
 
     </header>        
-    </body>
+</body>
 
-    
-    <script>
-        document.getElementById("inputResult")
-            .addEventListener("keyup",
-                function(event)
+<script>
+    document.getElementById("inputResult")
+        .addEventListener("keyup",
+            function(event)
+            {
+                document.getElementById("txtResult").style.backgroundColor = "white";
+                document.getElementById("txtResult").innerHTML = "-";
+
+                event.preventDefault();
+                if (event.keyCode === 13)
                 {
-                    event.preventDefault();
-                    if (event.keyCode === 13)
-                    {
-                        checkResult();
-                    }
+                    checkResult();
                 }
-        );
-    
-        var numItems = 0;
-        var numCorrect = 0;
-    
-        function displayEquation()
-        {
-            document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + " / " + numItems;
-            document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * 10);
-            document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * 10);
-            document.getElementById("inputResult").value = "";
-            document.getElementById("inputResult").focus();
-        }
-    
-        function checkResult()
-        {
-            numItems++;
-            var firstNum = new Number(document.getElementById("lblFirstNum").textContent);
-            var secondNum = new Number(document.getElementById("lblSecondNum").textContent);
-            var answer = new Number(document.getElementById("inputResult").value);
-            var correctAnswer =  firstNum + secondNum;
-    
-            if (correctAnswer == answer)
-            {
-                document.getElementById("txtResult").innerHTML = "Correct!";
-                document.getElementById("txtLastAnswer").innerHTML = "";
-                numCorrect++;
             }
-            else
-            {
-                document.getElementById("txtResult").innerHTML = "Incorrect!";
-                document.getElementById("txtLastAnswer").innerHTML = "Your answer: " + answer;
-            }
+    );
 
-            document.getElementById("txtResult").innerHTML += ' ' + firstNum + " + " + secondNum + " is " + correctAnswer;
-    
-            displayEquation();
+    var numItems = 0;
+    var numCorrect = 0;
+
+    function displayEquation()
+    {
+        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + " / " + numItems;
+        document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * 10);
+        document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * 10);
+        document.getElementById("inputResult").value = "";
+        document.getElementById("inputResult").focus();
+    }
+
+    function checkResult()
+    {
+        numItems++;
+        var firstNum = new Number(document.getElementById("lblFirstNum").textContent);
+        var secondNum = new Number(document.getElementById("lblSecondNum").textContent);
+        var answer = new Number(document.getElementById("inputResult").value);
+        var correctAnswer =  firstNum + secondNum;
+
+        if (correctAnswer == answer)
+        {
+            document.getElementById("txtResult").style.backgroundColor = "green";
+            document.getElementById("txtResult").innerHTML = "Correct!";
+            numCorrect++;
         }
-    </script>
+        else
+        {
+            document.getElementById("txtResult").style.backgroundColor = "red";
+            document.getElementById("txtResult").innerHTML = "Incorrect!";
+        }
+        
+        document.getElementById("txtLastAnswer").innerHTML = "Your answer: " + answer;
+        document.getElementById("txtResult").innerHTML += ' ' + firstNum + " + " + secondNum + " is " + correctAnswer;
+
+        displayEquation();
+    }
+</script>
     
 </html>
