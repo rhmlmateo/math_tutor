@@ -21,7 +21,7 @@
             </p>            
         </h1>
         <h2 id="equation">
-            <label id="lblFirstNum"></label> +
+            <label id="lblFirstNum"></label> -
             <label id="lblSecondNum"></label> = 
             <input type="text" id="inputResult"><br>
         </h2>
@@ -53,13 +53,27 @@
 
     var numItems = 0;
     var numCorrect = 0;
+    var subtrahend = 0;
+    var minuend = 0;
+
+    function getNewSetofNumbers()
+    {
+        var digit = new Number(document.getElementById("inputDigits").value);
+        
+        do
+        {
+            subtrahend = Math.floor(Math.random() * Math.pow(10, digit));
+            minuend = Math.floor(Math.random() * Math.pow(10, digit));
+        }
+        while (subtrahend < minuend)
+    }
 
     function displayEquation()
     {
-        var digit = new Number(document.getElementById("inputDigits").value);
+        getNewSetofNumbers();
         document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + " / " + numItems;
-        document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
-        document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
+        document.getElementById("lblFirstNum").textContent = subtrahend;
+        document.getElementById("lblSecondNum").textContent = minuend;
         document.getElementById("inputResult").value = "";
         document.getElementById("inputResult").focus();
     }
@@ -67,10 +81,8 @@
     function checkResult()
     {
         numItems++;
-        var firstNum = new Number(document.getElementById("lblFirstNum").textContent);
-        var secondNum = new Number(document.getElementById("lblSecondNum").textContent);
         var answer = new Number(document.getElementById("inputResult").value);
-        var correctAnswer =  firstNum + secondNum;
+        var correctAnswer =  Number(subtrahend) - Number(minuend);
 
         if (correctAnswer == answer)
         {
@@ -85,7 +97,7 @@
         }
 
         document.getElementById("txtLastAnswer").innerHTML = "Your last answer: " + answer;
-        document.getElementById("txtResult").innerHTML += ' ' + firstNum + " + " + secondNum + " is " + correctAnswer;
+        document.getElementById("txtResult").innerHTML += ' ' + subtrahend + " - " + minuend + " is " + correctAnswer;
 
         displayEquation();
     }
