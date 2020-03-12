@@ -9,16 +9,25 @@
 <body onload="displayEquation()">
     
     <header role="banner">
-        <h1>Addition</h1>
-
+        <h1>
+            <p>Addition</p>
+            <p>
+                <label for="inputDigits">Number of digits:</label> 
+                <select id="inputDigits" onchange="displayEquation()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </p>            
+        </h1>
         <h2>
             <label id="lblFirstNum"></label> +
             <label id="lblSecondNum"></label> = 
             <input type="text" id="inputResult"><br>
             
-            <p id="txtResult"></p>
-            <p id="txtLastAnswer"></p>
-            <p id="txtStats"></p>
+            <p id="txtResult">-</p>
+            <p id="txtLastAnswer">-</p>
+            <p id="txtStats"></p><br>
         </h2>
 
     </header>        
@@ -38,16 +47,17 @@
                     checkResult();
                 }
             }
-    );
+        );
 
     var numItems = 0;
     var numCorrect = 0;
 
     function displayEquation()
     {
+        var digit = new Number(document.getElementById("inputDigits").value);
         document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + " / " + numItems;
-        document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * 10);
-        document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * 10);
+        document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
+        document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
         document.getElementById("inputResult").value = "";
         document.getElementById("inputResult").focus();
     }
@@ -71,8 +81,8 @@
             document.getElementById("txtResult").style.backgroundColor = "red";
             document.getElementById("txtResult").innerHTML = "Incorrect!";
         }
-        
-        document.getElementById("txtLastAnswer").innerHTML = "Your answer: " + answer;
+
+        document.getElementById("txtLastAnswer").innerHTML = "Your last answer: " + answer;
         document.getElementById("txtResult").innerHTML += ' ' + firstNum + " + " + secondNum + " is " + correctAnswer;
 
         displayEquation();
