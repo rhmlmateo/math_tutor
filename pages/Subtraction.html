@@ -10,7 +10,7 @@
     
     <header role="banner">
         <h1>
-            <p>Addition</p>
+            <p>Subtraction</p>
             <p>
                 <label for="inputDigits">Number of digits:</label> 
                 <select id="inputDigits" onchange="displayEquation()">
@@ -23,15 +23,19 @@
         <h2 id="equation">
             <label id="lblFirstNum"></label> -
             <label id="lblSecondNum"></label> = 
-            <input type="text" id="inputResult"><br>
+            <input type="text" id="inputResult" style="font-size:30px; border-color: orange; padding: 10px 10px; border-radius: 6px;" size="3"><br>
         </h2>
         <h2>
             
             <p id="txtResult">-</p>
             <p id="txtLastAnswer">-</p>
-            <p id="txtStats"></p><br>
+            <p id="txtStats"></p>
         </h2>
         <p style="text-align: center;"><a href="../index.html" title="back">Back</a></p>
+
+        <div style="text-align: center" id="divWrongAnswers">
+        </div>
+        <br>
 
     </header>        
 </body>
@@ -41,13 +45,16 @@
         .addEventListener("keyup",
         function(event)
         {
-            document.getElementById("txtResult").style.backgroundColor = "white";
-            document.getElementById("txtResult").innerHTML = "-";
-
-            event.preventDefault();
-            if (event.keyCode === 13)
+            if(document.getElementById("inputResult").value != "")
             {
-                checkResult();
+                document.getElementById("txtResult").style.backgroundColor = "white";
+                document.getElementById("txtResult").innerHTML = "-";
+
+                event.preventDefault();
+                if (event.keyCode === 13)
+                {
+                    checkResult();
+                }
             }
         }
     );
@@ -72,7 +79,7 @@
     function displayEquation()
     {
         getNewSetofNumbers();
-        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + " / " + numItems;
+        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + "<br>Total items:" + numItems;
         document.getElementById("lblFirstNum").textContent = subtrahend;
         document.getElementById("lblSecondNum").textContent = minuend;
         document.getElementById("inputResult").value = "";
@@ -85,20 +92,23 @@
         var answer = new Number(document.getElementById("inputResult").value);
         var correctAnswer =  Number(subtrahend) - Number(minuend);
 
+        var divStyle;
         if (correctAnswer == answer)
         {
-            document.getElementById("txtResult").style.backgroundColor = "green";
+            document.getElementById("txtResult").style.backgroundColor = "lightgreen";
             document.getElementById("txtResult").innerHTML = "Correct!";
             numCorrect++;
+            divStyle = ' style="background-color:lightgreen" ';
         }
         else
         {
-            document.getElementById("txtResult").style.backgroundColor = "red";
-            document.getElementById("txtResult").innerHTML = "Incorrect!";
+            document.getElementById("txtResult").style.backgroundColor = "pink";
+            document.getElementById("txtResult").innerHTML = "Incorrect!";            
+            divStyle = ' style="background-color:pink" ';
         }
-
         document.getElementById("txtLastAnswer").innerHTML = "Your last answer: " + answer;
         document.getElementById("txtResult").innerHTML += ' ' + subtrahend + " - " + minuend + " is " + correctAnswer;
+        document.getElementById("divWrongAnswers").innerHTML += "<div "+divStyle+" id='"+numCorrect + "_of_" + numItems+"'>"+document.getElementById("txtResult").innerHTML+". Your answer is "+answer+".</br></div>";
 
         displayEquation();
     }
