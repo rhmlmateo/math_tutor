@@ -28,7 +28,6 @@
         <h2>
             
             <p id="txtResult">-</p>
-            <p id="txtLastAnswer">-</p>
             <p id="txtStats"></p>
         </h2>
         <p style="text-align: center;"><a href="../index.html" title="back">Back</a></p>
@@ -106,8 +105,7 @@
             document.getElementById("txtResult").innerHTML = "Incorrect!";            
             divStyle = ' style="background-color:pink" ';
         }
-        document.getElementById("txtLastAnswer").innerHTML = "Your last answer: " + answer;
-        var txtResult = document.getElementById("txtResult").innerHTML + ' ' + subtrahend + " - " + minuend + " is " + correctAnswer;
+        var txtResult = subtrahend + " - " + minuend + " is " + correctAnswer;
         document.getElementById("divWrongAnswers").innerHTML = "<div "+ divStyle +" id='"+numCorrect + "_of_" + numItems+"'>"
                                                                     + txtResult +". Your answer is " + answer 
                                                                 +".</br></div>"
