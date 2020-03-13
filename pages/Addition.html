@@ -65,7 +65,7 @@
     function displayEquation()
     {
         var digit = new Number(document.getElementById("inputDigits").value);
-        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + "<br>Total items:" + numItems;
+        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + "<br>Items:" + numItems;
         document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
         document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
         document.getElementById("inputResult").value = "";
@@ -95,8 +95,11 @@
             divStyle = ' style="background-color:pink" ';
         }
         document.getElementById("txtLastAnswer").innerHTML = "Your last answer: " + answer;
-        document.getElementById("txtResult").innerHTML += ' ' + firstNum + " + " + secondNum + " is " + correctAnswer;
-        document.getElementById("divWrongAnswers").innerHTML += "<div "+divStyle+" id='"+numCorrect + "_of_" + numItems+"'>"+document.getElementById("txtResult").innerHTML+". Your answer is "+answer+".</br></div>";
+        var txtResult = document.getElementById("txtResult").innerHTML + ' ' + firstNum + " + " + secondNum + " is " + correctAnswer;
+        document.getElementById("divWrongAnswers").innerHTML = "<div "+ divStyle +" id='"+numCorrect + "_of_" + numItems+"'>"
+                                                                    + txtResult +". Your answer is " + answer 
+                                                                +".</br></div>"
+                                                                + document.getElementById("divWrongAnswers").innerHTML;
 
         displayEquation();
     }

@@ -79,7 +79,7 @@
     function displayEquation()
     {
         getNewSetofNumbers();
-        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + "<br>Total items:" + numItems;
+        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + "<br>Items:" + numItems;
         document.getElementById("lblFirstNum").textContent = subtrahend;
         document.getElementById("lblSecondNum").textContent = minuend;
         document.getElementById("inputResult").value = "";
@@ -107,8 +107,11 @@
             divStyle = ' style="background-color:pink" ';
         }
         document.getElementById("txtLastAnswer").innerHTML = "Your last answer: " + answer;
-        document.getElementById("txtResult").innerHTML += ' ' + subtrahend + " - " + minuend + " is " + correctAnswer;
-        document.getElementById("divWrongAnswers").innerHTML += "<div "+divStyle+" id='"+numCorrect + "_of_" + numItems+"'>"+document.getElementById("txtResult").innerHTML+". Your answer is "+answer+".</br></div>";
+        var txtResult = document.getElementById("txtResult").innerHTML + ' ' + subtrahend + " - " + minuend + " is " + correctAnswer;
+        document.getElementById("divWrongAnswers").innerHTML = "<div "+ divStyle +" id='"+numCorrect + "_of_" + numItems+"'>"
+                                                                    + txtResult +". Your answer is " + answer 
+                                                                +".</br></div>"
+                                                                + document.getElementById("divWrongAnswers").innerHTML;
 
         displayEquation();
     }
