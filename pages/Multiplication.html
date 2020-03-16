@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>Subtraction</title>
+    <title>Multiplication</title>
     <link href="../css/style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -12,25 +12,21 @@
 
 <script>
 
-    var operator = "-";
+    var operator = "*";
     var firstNum = 0;
     var secondNum = 0;
     var digit = 1;
 
     function operation()
     {
-        return firstNum - secondNum;
+        return firstNum * secondNum;
     }
 
     function getNewSetofNumbers()
     {
         digit = new Number(document.getElementById("inputDigits").value);
-        do
-        {
-            firstNum = Math.floor(Math.random() * Math.pow(10, digit));
-            secondNum = Math.floor(Math.random() * Math.pow(10, digit));
-        }
-        while (firstNum < secondNum)
+        firstNum = Math.floor(Math.random() * Math.pow(10, digit));
+        secondNum = Math.floor(Math.random() * Math.pow(10, digit));
     }
 </script>
 <script src="./../scripts/script.js"></script>

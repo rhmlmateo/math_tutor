@@ -7,96 +7,26 @@
     <link href="../css/style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body onload="displayEquation()">
-    
-    <header role="banner">
-        <h1>
-            <p>
-                <label for="inputDigits">Number of digits:</label> 
-                <select id="inputDigits" onchange="displayEquation()" style="padding:5px 5px; font-size:16px; border-radius: 6px;">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-            </p>            
-
-            <label id="lblFirstNum"></label> +
-            <label id="lblSecondNum"></label> = 
-            <input type="text" id="inputResult" style="font-size:30px; border-color: orange; padding: 10px 10px; border-radius: 6px;" size="3"><br>
-            <p id="txtResult">-</p>
-            <p id="txtStats"></p>
-        </h1>
-        
-        <p style="text-align: center;"><a href="../index.html" title="back">Back</a></p>
-
-        <div style="text-align: center" id="divWrongAnswers">
-        </div>
-        <br>
-
-    </header>        
+<body id="body" onload="initialize()">
 </body>
 
 <script>
-    document.getElementById("inputResult")
-        .addEventListener("keyup",
-        function(event)
-        {
-            if(document.getElementById("inputResult").value != "")
-            {
-                document.getElementById("txtResult").style.backgroundColor = "white";
-                document.getElementById("txtResult").innerHTML = "-";
+var operator = "+";
+var firstNum = 0;
+var secondNum = 0;
+var digit = 1;
 
-                event.preventDefault();
-                if (event.keyCode === 13)
-                {
-                    checkResult();
-                }
-            }
-        }
-    );
+function operation()
+{
+    return firstNum + secondNum;
+}
 
-    var numItems = 0;
-    var numCorrect = 0;
-
-    function displayEquation()
-    {
-        var digit = new Number(document.getElementById("inputDigits").value);
-        document.getElementById("txtStats").innerHTML = "Score: " + numCorrect + "<br>Items:" + numItems;
-        document.getElementById("lblFirstNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
-        document.getElementById("lblSecondNum").textContent = Math.floor(Math.random() * Math.pow(10, digit));
-        document.getElementById("inputResult").value = "";
-        document.getElementById("inputResult").focus();
-    }
-
-    function checkResult()
-    {
-        numItems++;
-        var firstNum = new Number(document.getElementById("lblFirstNum").textContent);
-        var secondNum = new Number(document.getElementById("lblSecondNum").textContent);
-        var answer = new Number(document.getElementById("inputResult").value);
-        var correctAnswer =  firstNum + secondNum;
-
-        var divStyle;
-        if (correctAnswer == answer)
-        {
-            document.getElementById("txtResult").style.backgroundColor = "lightgreen";
-            document.getElementById("txtResult").innerHTML = "Correct!";
-            numCorrect++;
-            divStyle = ' style="background-color:lightgreen" ';
-        }
-        else
-        {
-            document.getElementById("txtResult").style.backgroundColor = "pink";
-            document.getElementById("txtResult").innerHTML = "Incorrect!";            
-            divStyle = ' style="background-color:pink" ';
-        }
-        var txtResult = firstNum + " + " + secondNum + " is " + correctAnswer;
-        document.getElementById("divWrongAnswers").innerHTML = "<div "+ divStyle +" id='"+numCorrect + "_of_" + numItems+"'>"
-                                                                    + txtResult +". Your answer is " + answer 
-                                                                +".</br></div>"
-                                                                + document.getElementById("divWrongAnswers").innerHTML;
-
-        displayEquation();
-    }
+function getNewSetofNumbers()
+{
+    digit = new Number(document.getElementById("inputDigits").value);
+    firstNum = Math.floor(Math.random() * Math.pow(10, digit));;
+    secondNum = Math.floor(Math.random() * Math.pow(10, digit));;
+}
 </script>    
+<script src="./../scripts/script.js"></script>
 </html>
